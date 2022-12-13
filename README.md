@@ -1,3 +1,3 @@
-# Full stack serverless app
+# Linker
 
-A simple example of how to build a full stack application using serverless technologies.
+🔗🔗 An open source app for linking all your profile links in one place 
