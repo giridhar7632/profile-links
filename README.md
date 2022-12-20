@@ -1,3 +1,3 @@
-# Linker
+# 🏵️ Rosette
 
-🔗🔗 An open source app for linking all your profile links in one place 
+🔗🔗 An open source app for adding all your profile links in one place 
