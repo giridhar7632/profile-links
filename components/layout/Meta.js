@@ -1,54 +1,58 @@
-import React from 'react'
 import Head from 'next/head'
 
 const makeTitle = (title, name) =>
-  title === name || !name ? title : `${title} | ${name}`
+	title === name || !name ? title : `${title} | ${name}`
 
 const baseUrl =
-  process.env.NODE_ENV === 'development'
-    ? 'http://localhost:3000'
-    : 'https://jamstackhack-22.netlify.app'
+	process.env.NODE_ENV === 'development'
+		? 'http://localhost:3000'
+		: 'https://jamstackhack-22.netlify.app'
 
 const Meta = ({
-  title = 'Jamstack Hack',
-  name = '',
-  description = 'An ecommerce content management system.',
-  url = baseUrl,
-  image = '/og.jpg',
-  children,
+	title = 'Rosette',
+	name = 'A place to add and share your links',
+	description = 'A place to add and share your links online. Add links and share your profile on social media.',
+	url = baseUrl,
+	image = '/og.jpg',
+	children,
 }) => (
-  <Head>
-    <title>{makeTitle(title, name)}</title>
-    <meta property="og:title" content={makeTitle(title, name)} key="og:title" />
-    <meta property="og:image" content={url + image} key="og:image" />
-    <meta property="description" content={description} key="description" />
-    <meta
-      property="og:description"
-      content={description}
-      key="og:description"
-    />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={url} />
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:title" content={title} key="twitter:title" />
-    <meta
-      property="twitter:description"
-      content={description}
-      key="twitter:description"
-    />
-    <meta property="twitter:image" content={url + image} key="twitter:image" />
-    <meta
-      name="theme-color"
-      content="#f1f5f8"
-      media="(prefers-color-scheme: dark)"
-    />
-    <meta
-      name="theme-color"
-      content="#172126"
-      media="(prefers-color-scheme: light)"
-    />
-    {children}
-  </Head>
+	<Head>
+		<title>{makeTitle(title, name)}</title>
+		<meta property='og:title' content={makeTitle(title, name)} key='og:title' />
+		<meta property='og:image' content={url + image} key='og:image' />
+		<meta property='description' content={description} key='description' />
+		<meta
+			property='og:description'
+			content={description}
+			key='og:description'
+		/>
+		<meta property='og:type' content='website' />
+		<meta property='og:url' content={url} />
+		<meta property='twitter:card' content='summary_large_image' />
+		<meta property='twitter:title' content={title} key='twitter:title' />
+		<meta
+			property='twitter:description'
+			content={description}
+			key='twitter:description'
+		/>
+		<meta property='twitter:image' content={url + image} key='twitter:image' />
+		<meta
+			name='theme-color'
+			content='#f1f5f8'
+			media='(prefers-color-scheme: dark)'
+		/>
+		<meta
+			name='theme-color'
+			content='#172126'
+			media='(prefers-color-scheme: light)'
+		/>
+
+		<link rel='apple-touch-icon' sizes='180x180' href='/apple-touch-icon.png' />
+		<link rel='icon' type='image/png' sizes='32x32' href='/favicon-32x32.png' />
+		<link rel='icon' type='image/png' sizes='16x16' href='/favicon-16x16.png' />
+		<link rel='manifest' href='/site.webmanifest' />
+		{children}
+	</Head>
 )
 
 export default Meta
