@@ -6,7 +6,7 @@ const makeTitle = (title, name) =>
 const baseUrl =
 	process.env.NODE_ENV === 'development'
 		? 'http://localhost:3000'
-		: 'https://jamstackhack-22.netlify.app'
+		: 'https://rosette-links.vercel.app'
 
 const Meta = ({
 	title = 'Rosette',
