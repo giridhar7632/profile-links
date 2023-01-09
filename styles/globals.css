@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+	.text-clip {
+		@apply bg-[url('/background.png')] bg-cover bg-clip-text text-transparent;
+	}
+}
