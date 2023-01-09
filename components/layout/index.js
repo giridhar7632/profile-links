@@ -6,7 +6,6 @@ import Navbar from './Navbar'
 
 const Layout = ({ meta, children, ...props }) => {
 	const router = useRouter()
-	console.log(router.pathname)
 	return (
 		<div className='max-w-screen flex min-h-screen'>
 			<Meta {...meta} />
@@ -15,7 +14,7 @@ const Layout = ({ meta, children, ...props }) => {
 				<main className='flex-1 px-2 py-2 md:px-6' {...props}>
 					{children}
 				</main>
-				<Footer />
+				{router.pathname !== '/p/[id]' ? <Footer /> : null}
 			</div>
 		</div>
 	)

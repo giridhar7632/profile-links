@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Button from '../components/common/Button'
 import Input from '../components/common/Input'
-import { Link } from '../components/common/Links'
+import Link from '../components/common/Link'
 import Layout from '../components/layout'
 
 const Login = () => {
@@ -11,8 +11,14 @@ const Login = () => {
 		handleSubmit,
 		formState: { errors },
 		reset,
-		setValue,
 	} = useForm()
+	const [loading, setLoading] = useState(false)
+	const onFormSubmit = handleSubmit(async (data) => {
+		setLoading(true)
+		console.log(data)
+		setLoading(false)
+		reset()
+	})
 	return (
 		<Layout meta={{ name: 'Login' }}>
 			<div className='flex h-full w-full flex-col items-center justify-center'>
@@ -48,7 +54,11 @@ const Login = () => {
 						})}
 						error={errors?.password}
 					/>
-					<Button className={'mt-4'} onClick={() => {}}>
+					<Button
+						className={'mt-4'}
+						loading={loading}
+						loadingText={'Logging in...'}
+						onClick={onFormSubmit}>
 						Login
 					</Button>
 				</form>

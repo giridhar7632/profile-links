@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Button from '../components/common/Button'
 import Input from '../components/common/Input'
-import { Link } from '../components/common/Links'
+import Link from '../components/common/Link'
 import FormSection from '../components/FormSection'
 import Layout from '../components/layout'
 
@@ -12,8 +12,14 @@ const Register = () => {
 		handleSubmit,
 		formState: { errors },
 		reset,
-		setValue,
 	} = useForm()
+	const [loading, setLoading] = useState(false)
+	const onFormSubmit = handleSubmit(async (data) => {
+		setLoading(true)
+		console.log(data)
+		setLoading(false)
+		reset()
+	})
 	return (
 		<Layout meta={{ name: 'Register' }}>
 			<div className='mx-auto max-w-xl'>
@@ -86,19 +92,19 @@ const Register = () => {
 							name='facebook'
 							type='link'
 							placeholder='Facebook'
-							register={register('facebook')}
+							register={register('socials.facebook')}
 						/>
 						<Input
 							name='instagram'
 							type='link'
 							placeholder='Instagram'
-							register={register('instagram')}
+							register={register('socials.instagram')}
 						/>
 						<Input
 							name='twitter'
 							type='link'
 							placeholder='Twitter'
-							register={register('twitter')}
+							register={register('socials.twitter')}
 						/>
 					</FormSection>
 
@@ -116,9 +122,10 @@ const Register = () => {
 					</FormSection>
 
 					<Button
+						loading={loading}
 						loadingText={'Creating your profile...'}
 						className={'mt-4'}
-						onClick={() => {}}>
+						onClick={onFormSubmit}>
 						Create my profile
 					</Button>
 				</form>

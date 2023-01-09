@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { Disclosure } from '@headlessui/react'
-import ChevronRight from './common/icons/ChevronRight'
+import { ChevronRight } from './common/icons'
 
 export default function FormSection({ title, children, ...props }) {
 	return (
@@ -15,6 +15,8 @@ export default function FormSection({ title, children, ...props }) {
 						)}>
 						{title}
 						<ChevronRight
+							width={24}
+							height={24}
 							className={clsx(
 								'text-orange-500',
 								open && 'rotate-90 transform duration-100'
