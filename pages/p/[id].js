@@ -6,6 +6,14 @@ import Layout from '../../components/layout'
 import temp from '../../data.json'
 
 const Profile = ({ profile }) => {
+	if (!profile)
+		return (
+			<Layout>
+				<div className={'w-full text-center text-2xl font-bold text-gray-400'}>
+					No data
+				</div>
+			</Layout>
+		)
 	return (
 		<Layout meta={{ name: profile.name }}>
 			<div className='mx-auto flex max-w-lg flex-col'>
@@ -54,9 +62,8 @@ export default Profile
 
 export async function getStaticProps({ params }) {
 	try {
-		const data = temp
 		return {
-			props: { profile: data },
+			props: { profile: null },
 		}
 	} catch (error) {
 		return {
