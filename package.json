@@ -1,11 +1,12 @@
 {
-	"name": "demo",
+	"name": "starter",
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
+		"format": "npx prettier **/**/*.{js,jsx} --write",
 		"lint": "next lint"
 	},
 	"dependencies": {
@@ -24,5 +25,11 @@
 		"prettier": "^2.8.1",
 		"prettier-plugin-tailwindcss": "^0.2.1",
 		"tailwindcss": "^3.2.4"
+	},
+	"prettier": {
+		"tabWidth": 2,
+		"semi": false,
+		"singleQuote": true,
+		"trailingComma": "es5"
 	}
 }
