@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model Links {
+  id     Int    @id @default(autoincrement())
+  title  String
+  link   String
+  userId Int?
+  User   User? @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+}
+
+model Socials {
+  id        Int     @id @default(autoincrement())
+  facebook  String?
+  instagram String?
+  twitter   String?
+  User      User[]
+}
+
+model User {
+  id        Int     @id @default(autoincrement())
+  name      String?
+  email     String? @unique
+  password  String?
+  socials   Socials @relation(fields: [socialsId], references: [id])
+  links     Links[]
+  socialsId Int
+
+  @@index([socialsId])
+}
