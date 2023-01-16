@@ -11,7 +11,7 @@ const Layout = ({ meta, children, ...props }) => {
       <Meta {...meta} />
       <div className="mx-auto flex w-[100%] max-w-screen-xl flex-col">
         <Navbar />
-        <main className="flex-1 px-2 py-2 md:px-6" {...props}>
+        <main className="flex-1 px-4 py-2 md:px-6" {...props}>
           {children}
         </main>
         {router.pathname !== '/p/[id]' ? <Footer /> : null}

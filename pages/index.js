@@ -28,7 +28,7 @@ export default function Index() {
           </Link>
         </div>
       </nav>
-      <div className="flex w-full flex-1 flex-col items-center bg-white bg-opacity-90 backdrop-blur-sm md:max-w-2xl lg:max-w-3xl">
+      <div className="flex w-full flex-1 flex-col items-center bg-white bg-opacity-90 px-4 backdrop-blur-sm md:max-w-2xl md:px-0 lg:max-w-3xl">
         <div className="flex flex-1 flex-col justify-center">
           <h1 className="max-w-lg text-xl font-semibold md:text-3xl">
             A place to add and share your links online. Add links and share your
