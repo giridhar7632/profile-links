@@ -31,7 +31,7 @@ export default async function handler(req, res) {
         },
       },
     })
-    return res.json({ message: 'User created!', token, type: 'success' })
+    return res.json({ message: 'User registered!', token, type: 'success' })
   } catch (error) {
     console.log(error)
     return res.json({ message: 'Something went wrong!', type: 'error' })

@@ -29,7 +29,9 @@ const Input = ({
         {...props}
         {...register}
       />
-      {error ? <p className="mt-2 text-xs text-red-500">{error}</p> : null}
+      {error ? (
+        <p className="mt-2 text-xs text-red-500">{error.message}</p>
+      ) : null}
     </div>
   )
 }

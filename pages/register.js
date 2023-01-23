@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { useState } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
 
@@ -6,6 +7,8 @@ import Input from '../components/common/Input'
 import Link from '../components/common/Link'
 import FormSection from '../components/FormSection'
 import Layout from '../components/layout'
+import LinksSection from '../components/LinksSection'
+import { useAuth } from '../components/useAuth'
 
 const Register = () => {
   const {
@@ -17,16 +20,29 @@ const Register = () => {
   } = useForm()
   const { fields, append } = useFieldArray({ control, name: 'links' })
   const [loading, setLoading] = useState(false)
+  const [status, setStatus] = useState('')
+  const { setIsAuth } = useAuth()
   const onFormSubmit = handleSubmit(async (data) => {
     setLoading(true)
-    console.log(data)
+    const res = await axios.post('/api/user/register', data)
+    console.log(res)
+    if (res.type === 'success') {
+      setIsAuth(res.token)
+      reset()
+    } else {
+      setStatus(res.message || 'Something went wrong!')
+    }
     setLoading(false)
-    reset()
   })
   return (
     <Layout meta={{ name: 'Register' }}>
       <div className="mx-auto max-w-xl">
         <h1 className="mb-6 w-max text-clip text-2xl font-bold">Register</h1>
+        {status ? (
+          <div className="mb-2 rounded-sm bg-red-50 p-2 text-center ring-2 ring-red-200">
+            {status}
+          </div>
+        ) : null}
         <form>
           <FormSection defaultOpen={true} title={'Credentials'}>
             <Input
@@ -69,7 +85,6 @@ const Register = () => {
               name="password"
               placeholder={`Super secret ✨ - minimum 8 characters`}
               aria-label="user-password"
-              handleClick={() => setShowPassword((prev) => !prev)}
               register={register('password', {
                 required: `Password is required!`,
                 pattern: {
@@ -111,7 +126,7 @@ const Register = () => {
             />
           </FormSection>
 
-          {/* Social media links */}
+          {/* Links media links */}
           <FormSection title={'Profile links'}>
             <ul>
               {fields.map((item, index) => (
@@ -138,6 +153,7 @@ const Register = () => {
             <Button
               variant={'text'}
               className="my-2 w-full"
+              type={'button'}
               onClick={() => append({ title: '', link: '' })}
             >
               + Add link

@@ -1,23 +1,14 @@
 import clsx from 'clsx'
-import React, { Children } from 'react'
+import React from 'react'
 
-export default React.forwardRef(function Button(
-  {
-    variant = 'primary',
-    loading = false,
-    loadingText = 'loading...',
-    className,
-    children,
-    ...attributes
-  },
-  ref
-) {
-  const handleClick = (e) => {
-    if (!loading && attributes.onClick) {
-      attributes.onClick(e)
-    }
-  }
-
+export default function Button({
+  variant = 'primary',
+  loading = false,
+  loadingText = 'loading...',
+  className,
+  children,
+  ...attributes
+}) {
   const variantClassname = clsx({
     ['bg-orange-600 text-white disabled:bg-orange-400 disabled:ring-0']:
       variant === 'primary',
@@ -34,18 +25,11 @@ export default React.forwardRef(function Button(
         className
       )}
       disabled={attributes.disabled || loading}
-      ref={ref}
-      onClick={handleClick}
+      onClick={attributes.onClick}
     >
-      {loading
-        ? loadingText
-        : Children.map(children, (child, i) => {
-            return (
-              <span key={i} className="mr-xsmall last:mr-0">
-                {child}
-              </span>
-            )
-          })}
+      <span className="mr-xsmall last:mr-0">
+        {loading ? loadingText : children}
+      </span>
     </button>
   )
-})
+}

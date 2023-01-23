@@ -1,7 +1,8 @@
+import { AuthProvider } from '../components/useAuth'
 import '../styles/globals.css'
 
 export default function MyApp({ Component, pageProps }) {
   const getLayout = Component.getLayout ?? ((page) => page)
 
-  return getLayout(<Component {...pageProps} />)
+  return <AuthProvider>{getLayout(<Component {...pageProps} />)}</AuthProvider>
 }
