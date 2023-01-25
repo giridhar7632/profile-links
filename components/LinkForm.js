@@ -6,7 +6,13 @@ import Button from './common/Button'
 import { Close, Pencil } from './common/icons'
 import Input from './common/Input'
 
-const EditLink = ({ title, link, ...props }) => {
+const LinkForm = ({
+  title,
+  defaultValues,
+  children,
+  onFormSubmit,
+  ...props
+}) => {
   const [isOpen, setIsOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const { register, handleSubmit, reset, setValue } = useForm()
@@ -14,13 +20,13 @@ const EditLink = ({ title, link, ...props }) => {
   const handleOpen = () => setIsOpen(true)
 
   useEffect(() => {
-    setValue('title', title)
-    setValue('link', link)
-  }, [link, setValue, title])
+    setValue('title', defaultValues.title)
+    setValue('link', defaultValues.link)
+  }, [defaultValues, setValue])
 
-  const onFormSubmit = handleSubmit(async (data) => {
+  const onSubmit = handleSubmit(async (data) => {
     setLoading(true)
-    console.log(data)
+    onFormSubmit(data)
     setLoading(false)
     reset()
   })
@@ -28,7 +34,7 @@ const EditLink = ({ title, link, ...props }) => {
   return (
     <>
       <Button onClick={handleOpen} variant="text" {...props}>
-        <Pencil width={16} height={16} />
+        {children}
       </Button>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={handleClose}>
@@ -60,7 +66,7 @@ const EditLink = ({ title, link, ...props }) => {
                     as="div"
                     className="mb-5 flex items-center justify-between text-lg font-semibold leading-6 text-gray-800"
                   >
-                    <h3>Edit Link</h3>
+                    <h3>{title}</h3>
                     <Close
                       width={24}
                       height={24}
@@ -85,7 +91,7 @@ const EditLink = ({ title, link, ...props }) => {
                     />
                   </form>
                   <Button
-                    onClick={onFormSubmit}
+                    onClick={onSubmit}
                     loading={loading}
                     loadingText={'Saving...'}
                   >
@@ -101,4 +107,4 @@ const EditLink = ({ title, link, ...props }) => {
   )
 }
 
-export default EditLink
+export default LinkForm

@@ -25,7 +25,11 @@ export default async function handler(req, res) {
         type: 'error',
       })
     }
-    return res.json({ message: 'User logged in!', data: user, type: 'success' })
+    return res.json({
+      message: 'User logged in!',
+      token: user.token,
+      type: 'success',
+    })
   } catch (error) {
     console.log(error)
     return res.json({ message: 'Something went wrong!', type: 'error' })

@@ -1,5 +1,6 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import Router from 'next/router'
+import React, { useEffect, useState } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
 
 import Button from '../components/common/Button'
@@ -7,8 +8,7 @@ import Input from '../components/common/Input'
 import Link from '../components/common/Link'
 import FormSection from '../components/FormSection'
 import Layout from '../components/layout'
-import LinksSection from '../components/LinksSection'
-import { useAuth } from '../components/useAuth'
+import { useAuth } from '../utils/useAuth'
 
 const Register = () => {
   const {
@@ -21,10 +21,17 @@ const Register = () => {
   const { fields, append } = useFieldArray({ control, name: 'links' })
   const [loading, setLoading] = useState(false)
   const [status, setStatus] = useState('')
-  const { setIsAuth } = useAuth()
+  const { isAuth, setIsAuth } = useAuth()
+
+  useEffect(() => {
+    if (isAuth) {
+      Router.replace(`/p/${isAuth}`)
+    }
+  }, [isAuth])
+
   const onFormSubmit = handleSubmit(async (data) => {
     setLoading(true)
-    const res = await axios.post('/api/user/register', data)
+    const { data: res } = await axios.post('/api/user/register', data)
     console.log(res)
     if (res.type === 'success') {
       setIsAuth(res.token)
@@ -34,6 +41,7 @@ const Register = () => {
     }
     setLoading(false)
   })
+
   return (
     <Layout meta={{ name: 'Register' }}>
       <div className="mx-auto max-w-xl">

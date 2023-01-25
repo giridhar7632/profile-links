@@ -1,4 +1,4 @@
-import { AuthProvider } from '../components/useAuth'
+import { AuthProvider } from '../utils/useAuth'
 import '../styles/globals.css'
 
 export default function MyApp({ Component, pageProps }) {

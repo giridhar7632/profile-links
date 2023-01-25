@@ -1,12 +1,13 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import Router from 'next/router'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import Button from '../components/common/Button'
 import Input from '../components/common/Input'
 import Link from '../components/common/Link'
 import Layout from '../components/layout'
-import { useAuth } from '../components/useAuth'
+import { useAuth } from '../utils/useAuth'
 
 const Login = () => {
   const {
@@ -17,7 +18,15 @@ const Login = () => {
   } = useForm()
   const [loading, setLoading] = useState(false)
   const [status, setStatus] = useState('')
-  const { setIsAuth } = useAuth()
+  const { isAuth, setIsAuth } = useAuth()
+
+  useEffect(() => {
+    if (isAuth) {
+      console.log(isAuth)
+      Router.replace(`/p/${isAuth}`)
+    }
+  }, [isAuth])
+
   const onFormSubmit = handleSubmit(async (data) => {
     setLoading(true)
     const { data: res } = await axios.post('/api/user/login', data)
@@ -30,6 +39,7 @@ const Login = () => {
     }
     setLoading(false)
   })
+
   return (
     <Layout meta={{ name: 'Login' }}>
       <div className="flex h-full w-full flex-col items-center justify-center">
@@ -64,7 +74,6 @@ const Login = () => {
             name="password"
             placeholder={`Your Super secret ✨`}
             aria-label="user-password"
-            handleClick={() => setShowPassword((prev) => !prev)}
             register={register('password', {
               required: `Password is required!`,
             })}

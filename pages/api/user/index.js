@@ -18,9 +18,12 @@ export default async function handle(req, res) {
         type: 'error',
       })
     }
-    return res.json({ message: 'User found!', data: user, type: 'success' })
+    return res.json({ message: 'User found!', user, type: 'success' })
   } catch (error) {
     console.log(error)
-    return res.json({ message: 'Something went wrong!', type: 'error' })
+    return res.json({
+      message: error.message || 'Something went wrong!',
+      type: 'error',
+    })
   }
 }

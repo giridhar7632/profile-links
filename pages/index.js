@@ -1,8 +1,20 @@
 import Link from 'next/link'
+import Router from 'next/router'
+import { useEffect } from 'react'
+
 import Button from '../components/common/Button'
 import Meta from '../components/layout/Meta'
+import { useAuth } from '../utils/useAuth'
 
 export default function Index() {
+  const { isAuth } = useAuth()
+
+  useEffect(() => {
+    if (isAuth) {
+      Router.replace(`/p/${isAuth}`)
+    }
+  }, [isAuth])
+
   return (
     <div
       className={

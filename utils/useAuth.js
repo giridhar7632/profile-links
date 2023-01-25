@@ -5,12 +5,15 @@ export const useAuth = () => useContext(AuthContext)
 export const AuthContext = createContext({})
 
 export const AuthProvider = ({ children }) => {
-  const [isAuth, setIsAuth] = useState(false)
+  const [isAuth, setIsAuth] = useState('')
 
   useEffect(() => {
-    localStorage.setItem('token', isAuth)
     const token = localStorage.getItem('token')
-    token && setIsAuth(token)
+    if (token) {
+      setIsAuth(token)
+    } else {
+      localStorage.setItem('token', isAuth)
+    }
   }, [isAuth])
 
   return (
