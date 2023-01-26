@@ -16,8 +16,8 @@ const Profile = ({ user, message, type }) => {
   const { isAuth } = useAuth()
   const handleAddLink = async (data) => {
     try {
-      await axios.post('/api/link/create', { data })
-      setLinks((prev) => [...prev, data])
+      const res = await axios.post('/api/link/create', { data })
+      setLinks((prev) => [...prev, res.data.link])
     } catch (error) {
       console.log(error)
     }

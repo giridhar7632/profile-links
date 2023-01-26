@@ -7,8 +7,12 @@ import LinkForm from './LinkForm'
 const ProfileLink = ({ id, title, setLinks, isAuth, link }) => {
   const handleUpdateLink = async (data) => {
     try {
-      await axios.post('/api/link/update', { id, token: isAuth, link: data })
-      setLinks((prev) => prev.map((i) => (i.id === id ? { ...i, ...data } : i)))
+      const res = await axios.post('/api/link/update', {
+        id,
+        token: isAuth,
+        link: data,
+      })
+      setLinks((prev) => prev.map((i) => (i.id === id ? res.data.link : i)))
     } catch (error) {
       console.log(error)
     }

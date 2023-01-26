@@ -3,6 +3,7 @@ import prisma from '../../../utils/prisma'
 
 export default async function handle(req, res) {
   const { token, id, link } = req.body
+  console.log(req.body)
   try {
     const userId = await extractId(token)
     const data = await prisma.links.update({
@@ -14,7 +15,9 @@ export default async function handle(req, res) {
         },
       },
     })
-    res.status(200).json({ message: 'User found!', data, type: 'success' })
+    res
+      .status(200)
+      .json({ message: 'User found!', link: data, type: 'success' })
   } catch (error) {
     console.log(error)
     res.status(500).json({
