@@ -29,13 +29,12 @@ const Login = () => {
 
   const onFormSubmit = handleSubmit(async (data) => {
     setLoading(true)
-    const { data: res } = await axios.post('/api/user/login', data)
-    console.log(res)
-    if (res.type === 'success') {
+    try {
+      const { data: res } = await axios.post('/api/user/login', data)
       setIsAuth(res.token)
       reset()
-    } else {
-      setStatus(res.message || 'Something went wrong!')
+    } catch (error) {
+      setStatus(error.message || 'Something went wrong!')
     }
     setLoading(false)
   })

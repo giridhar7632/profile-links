@@ -14,9 +14,14 @@ export default async function handle(req, res) {
         },
       },
     })
-    return res.json({ message: 'User found!', data, type: 'success' })
+    res.status(200).json({ message: 'User found!', data, type: 'success' })
   } catch (error) {
     console.log(error)
-    return res.json({ message: 'Something went wrong!', type: 'error' })
+    res.status(500).json({
+      message: error?.message || 'Something went wrong!',
+      type: 'error',
+    })
+  } finally {
+    await prisma.$disconnect()
   }
 }

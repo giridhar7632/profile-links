@@ -6,9 +6,14 @@ export default async function handle(req, res) {
   try {
     const id = await extractId(token)
     const links = await prisma.links.findMany({ where: { userId: id } })
-    return res.json({ message: 'User found!', data: links, type: 'success' })
+    res.status(200).json({ message: 'User found!', links, type: 'success' })
   } catch (error) {
     console.log(error)
-    return res.json({ message: 'Something went wrong!', type: 'error' })
+    res.status(500).json({
+      message: error?.message || 'Something went wrong!',
+      type: 'error',
+    })
+  } finally {
+    await prisma.$disconnect()
   }
 }

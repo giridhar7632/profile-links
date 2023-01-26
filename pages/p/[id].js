@@ -1,5 +1,6 @@
 import axios from 'axios'
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
 
 import { Facebook, Instagram, Twitter } from '../../components/common/icons'
 import Link from '../../components/common/Link'
@@ -7,8 +8,20 @@ import Layout from '../../components/layout'
 import LinkForm from '../../components/LinkForm'
 import ProfileLink from '../../components/ProfileLink'
 import prisma from '../../utils/prisma'
+import { useAuth } from '../../utils/useAuth'
 
 const Profile = ({ user, message, type }) => {
+  const [links, setLinks] = useState(user?.links || [])
+  const { isAuth } = useAuth()
+  const handleAddLink = async (data) => {
+    try {
+      await axios.post('/api/link/create', { data })
+      setLinks((prev) => [...prev, data])
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   if (type !== 'success')
     return (
       <Layout>
@@ -17,11 +30,6 @@ const Profile = ({ user, message, type }) => {
         </div>
       </Layout>
     )
-
-  const handleAddLink = async (data) => {
-    const { data: res } = await axios.post('/api/link/create', data)
-    user.links.append(res.data)
-  }
 
   return (
     <Layout meta={{ name: user?.name }}>
@@ -54,9 +62,9 @@ const Profile = ({ user, message, type }) => {
 
         <div className="flex flex-col">
           <h2 className="mb-2 text-gray-500">Links</h2>
-          {user.links.length < 10 ? (
+          {links.length < 10 && isAuth ? (
             <LinkForm
-              className={'w-full'}
+              className={'mb-2 w-full'}
               title={'Add Link'}
               onFormSubmit={handleAddLink}
             >
@@ -66,8 +74,13 @@ const Profile = ({ user, message, type }) => {
             ''
           )}
           <ul>
-            {user.links.map((i, idx) => (
-              <ProfileLink key={idx} {...i} />
+            {links.map((i, idx) => (
+              <ProfileLink
+                key={idx}
+                setLinks={setLinks}
+                isAuth={isAuth}
+                {...i}
+              />
             ))}
           </ul>
         </div>

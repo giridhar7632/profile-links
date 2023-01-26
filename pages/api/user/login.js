@@ -13,25 +13,24 @@ export default async function handler(req, res) {
       },
     })
     if (!user) {
-      return res.json({
-        message: 'User does not exist!',
-        type: 'error',
-      })
+      throw new Error('User does not exist!')
     }
     const isMatch = await bcrypt.compare(password, user.password)
     if (!isMatch) {
-      return res.json({
-        message: 'Incorrect password!',
-        type: 'error',
-      })
+      throw new Error('Incorrect password!')
     }
-    return res.json({
+    res.status(200).json({
       message: 'User logged in!',
       token: user.token,
       type: 'success',
     })
   } catch (error) {
     console.log(error)
-    return res.json({ message: 'Something went wrong!', type: 'error' })
+    res.status(500).json({
+      message: error.messsage || 'Something went wrong!',
+      type: 'error',
+    })
+  } finally {
+    await prisma.$disconnect()
   }
 }

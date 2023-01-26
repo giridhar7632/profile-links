@@ -30,7 +30,7 @@ const Input = ({
         {...register}
       />
       {error ? (
-        <p className="mt-2 text-xs text-red-500">{error.message}</p>
+        <p className="mt-2 text-xs text-red-500">{error?.message}</p>
       ) : null}
     </div>
   )

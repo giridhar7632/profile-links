@@ -8,9 +8,14 @@ export default async function handle(req, res) {
     await prisma.links.delete({
       where: { id },
     })
-    return res.json({ message: 'Link deleted!', type: 'success' })
+    res.status(200).json({ message: 'Link deleted!', type: 'success' })
   } catch (error) {
     console.log(error)
-    return res.json({ message: 'Something went wrong!', type: 'error' })
+    res.status(500).json({
+      message: error?.message || 'Something went wrong!',
+      type: 'error',
+    })
+  } finally {
+    await prisma.$disconnect()
   }
 }

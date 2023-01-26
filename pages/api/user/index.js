@@ -13,17 +13,16 @@ export default async function handle(req, res) {
       },
     })
     if (!user) {
-      return res.json({
-        message: 'User does not exist!',
-        type: 'error',
-      })
+      throw new Error('User does not exist!')
     }
-    return res.json({ message: 'User found!', user, type: 'success' })
+    res.status(200).json({ message: 'User found!', user, type: 'success' })
   } catch (error) {
     console.log(error)
-    return res.json({
-      message: error.message || 'Something went wrong!',
+    res.status(500).json({
+      message: error?.message || 'Something went wrong!',
       type: 'error',
     })
+  } finally {
+    await prisma.$disconnect()
   }
 }

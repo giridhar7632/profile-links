@@ -8,6 +8,7 @@ export default async function extractId(token) {
     }
     return id
   } catch (error) {
+    console.log(error)
     throw new Error('No user')
   }
 }

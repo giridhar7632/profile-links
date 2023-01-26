@@ -20,15 +20,20 @@ const LinkForm = ({
   const handleOpen = () => setIsOpen(true)
 
   useEffect(() => {
-    setValue('title', defaultValues.title)
-    setValue('link', defaultValues.link)
+    setValue('title', defaultValues?.title)
+    setValue('link', defaultValues?.link)
   }, [defaultValues, setValue])
 
   const onSubmit = handleSubmit(async (data) => {
     setLoading(true)
-    onFormSubmit(data)
+    try {
+      await onFormSubmit(data)
+      setIsOpen(false)
+      reset()
+    } catch (error) {
+      console.log(error)
+    }
     setLoading(false)
-    reset()
   })
 
   return (

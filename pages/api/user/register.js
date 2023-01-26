@@ -8,10 +8,7 @@ export default async function handler(req, res) {
   try {
     const user = await prisma.user.findUnique({ where: { email } })
     if (user) {
-      return res.json({
-        message: 'User already exists! try logging in',
-        type: 'error',
-      })
+      throw new Error('User already exists! try logging in')
     }
     const hashedPassword = await bcrypt.hash(password, 10)
     const token = crypto.randomBytes(16).toString('hex')
@@ -31,9 +28,16 @@ export default async function handler(req, res) {
         },
       },
     })
-    return res.json({ message: 'User registered!', token, type: 'success' })
+    res
+      .status(200)
+      .json({ message: 'User registered!', token, type: 'success' })
   } catch (error) {
     console.log(error)
-    return res.json({ message: 'Something went wrong!', type: 'error' })
+    res.status(500).json({
+      message: error?.message || 'Something went wrong!',
+      type: 'error',
+    })
+  } finally {
+    await prisma.$disconnect()
   }
 }

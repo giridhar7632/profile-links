@@ -2,14 +2,20 @@ import extractId from '../../../utils/extractId'
 import prisma from '../../../utils/prisma'
 
 export default async function handle(req, res) {
-  const { token, links } = req.body
+  const { token, data } = req.body
   try {
     const userId = await extractId(token)
-    const updatedLinks = links.map((i) => ({ ...i, userId }))
-    const data = await prisma.links.createMany({ data: updatedLinks })
-    return res.json({ message: 'User found!', data, type: 'success' })
+    await prisma.links.create({
+      data: { ...data, User: { connect: { id: userId } } },
+    })
+    res.status(200).json({ message: 'User found!', type: 'success' })
   } catch (error) {
     console.log(error)
-    return res.json({ message: 'Something went wrong!', type: 'error' })
+    res.status(500).json({
+      message: error?.message || 'Something went wrong!',
+      type: 'error',
+    })
+  } finally {
+    await prisma.$disconnect()
   }
 }

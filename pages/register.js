@@ -31,13 +31,12 @@ const Register = () => {
 
   const onFormSubmit = handleSubmit(async (data) => {
     setLoading(true)
-    const { data: res } = await axios.post('/api/user/register', data)
-    console.log(res)
-    if (res.type === 'success') {
+    try {
+      const { data: res } = await axios.post('/api/user/register', data)
       setIsAuth(res.token)
       reset()
-    } else {
-      setStatus(res.message || 'Something went wrong!')
+    } catch (error) {
+      setStatus(error.message || 'Something went wrong!')
     }
     setLoading(false)
   })
