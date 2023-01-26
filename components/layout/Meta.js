@@ -3,7 +3,7 @@ import Head from 'next/head'
 const makeTitle = (title, name) =>
   title === name || !name ? title : `${title} | ${name}`
 
-const baseUrl =
+export const baseUrl =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:3000'
     : 'https://rosette-links.vercel.app'

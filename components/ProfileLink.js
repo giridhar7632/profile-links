@@ -1,6 +1,6 @@
 import axios from 'axios'
 import Button from './common/Button'
-import { Pencil, Close } from './common/icons'
+import { Pencil, Trash } from './common/icons'
 import Link from './common/Link'
 import LinkForm from './LinkForm'
 
@@ -42,7 +42,7 @@ const ProfileLink = ({ id, title, setLinks, isAuth, link }) => {
               <Pencil width={16} height={16} />
             </LinkForm>
             <Button onClick={handleDeleteLink} variant="text">
-              <Close width={16} height={16} />
+              <Trash height={16} />
             </Button>
           </div>
         )}

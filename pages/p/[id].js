@@ -1,10 +1,11 @@
 import axios from 'axios'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { Facebook, Instagram, Twitter } from '../../components/common/icons'
 import Link from '../../components/common/Link'
 import Layout from '../../components/layout'
+import { baseUrl } from '../../components/layout/Meta'
 import LinkForm from '../../components/LinkForm'
 import ProfileLink from '../../components/ProfileLink'
 import prisma from '../../utils/prisma'
@@ -93,7 +94,7 @@ export default Profile
 
 export async function getStaticProps({ params }) {
   try {
-    const { data } = await axios.post('http://localhost:3000/api/user', {
+    const { data } = await axios.post(`${baseUrl}/api/user`, {
       token: params.id,
     })
     return {
