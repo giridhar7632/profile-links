@@ -16,6 +16,7 @@ const Profile = ({ profile, message, type }) => {
   const { user, isAuth } = useAuth()
   const handleAddLink = async (data) => {
     try {
+      // 1. send the post request to the API along with JWT
       const res = await axios.post(
         '/api/link/create',
         { data },
@@ -27,13 +28,12 @@ const Profile = ({ profile, message, type }) => {
           },
         }
       )
+      // 2. update the frontend state
       setLinks((prev) => [...prev, res.data.link])
     } catch (error) {
       console.log(error)
     }
   }
-
-  console.log(isAuth, 'user', user)
 
   if (type !== 'success')
     return (
@@ -72,7 +72,6 @@ const Profile = ({ profile, message, type }) => {
             <Facebook width={24} />
           </Link>
         </div>
-        {console.log(user, profile.id, user === profile.id)}
         <div className="flex flex-col">
           <h2 className="mb-2 text-gray-500">Links</h2>
           {links.length < 10 && user === profile.id ? (

@@ -25,17 +25,19 @@ const Register = () => {
 
   useEffect(() => {
     if (user) {
-      console.log(user)
       Router.replace(`/p/${user}`)
     }
   }, [user])
 
+  // sending user data to register user
   const onFormSubmit = handleSubmit(async (data) => {
     setLoading(true)
     try {
-      const { data: res } = await axios.post('/api/user/register', data)
-      setIsAuth(res.token)
-      setUser(res.user)
+      // sending post request
+      const res = await axios.post('/api/user/register', data)
+      // updating states
+      setIsAuth(res.data.token)
+      setUser(res.data.user)
       reset()
     } catch (error) {
       setStatus(error.message || 'Something went wrong!')

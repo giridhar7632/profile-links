@@ -1,9 +1,11 @@
 import authenticationMiddleware from '../../../utils/authorizationMiddleware'
 import prisma from '../../../utils/prisma'
 
+// authorization middleware
 export default authenticationMiddleware(async function handle(req, res) {
   const userId = req.user
   try {
+    // 1. checking for the user
     const user = await prisma.user.findUnique({
       where: { id: userId },
       include: {
@@ -12,8 +14,11 @@ export default authenticationMiddleware(async function handle(req, res) {
       },
     })
     if (!user) {
+      // if user doesn't exist return error
       throw new Error('User does not exist!')
     }
+
+    // 2. send the user data
     res
       .status(200)
       .json({ message: 'User found!', user: user.id, type: 'success' })

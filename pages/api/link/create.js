@@ -1,11 +1,12 @@
 import authenticationMiddleware from '../../../utils/authorizationMiddleware'
 import prisma from '../../../utils/prisma'
 
+// suthorizing the user
 export default authenticationMiddleware(async function handle(req, res) {
   const { data } = req.body
-  console.log(req.body)
   try {
     const userId = req.user
+    // creating new link in table
     const link = await prisma.links.create({
       data: { ...data, User: { connect: { id: userId } } },
     })

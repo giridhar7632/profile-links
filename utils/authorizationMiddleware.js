@@ -1,11 +1,14 @@
-import { verify } from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
 
+// 1. take handler function as input
 function authenticationMiddleware(handler) {
   return async (req, res) => {
     try {
+      // 2. check for valid token
       const token = req.headers['authorization'].split(' ')[1]
-      const { userId } = verify(token, process.env.JWT_SECRET)
+      const { userId } = jwt.verify(token, process.env.JWT_SECRET)
       req.user = userId
+      // 3. execute the main request handler
       return await handler(req, res)
     } catch (error) {
       console.log(error)

@@ -3,6 +3,7 @@ import prisma from '../../../utils/prisma'
 export default async function handle(req, res) {
   const { userId } = req.body
   try {
+    // 1. check for user in database
     const user = await prisma.user.findUnique({
       where: { id: userId },
       include: {
@@ -11,6 +12,7 @@ export default async function handle(req, res) {
       },
     })
     if (!user) {
+      // if user doesn't exist return error
       throw new Error('User does not exist!')
     }
     res

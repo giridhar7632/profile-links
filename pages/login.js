@@ -22,7 +22,6 @@ const Login = () => {
 
   useEffect(() => {
     if (user) {
-      console.log(user)
       Router.replace(`/p/${user}`)
     }
   }, [user])

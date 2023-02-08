@@ -7,6 +7,7 @@ import LinkForm from './LinkForm'
 const ProfileLink = ({ id, title, setLinks, own, token, link }) => {
   const handleUpdateLink = async (data) => {
     try {
+      // 1. send the post request to the API along with JWT
       const res = await axios.post(
         '/api/link/update',
         { id, link: data },
@@ -18,6 +19,7 @@ const ProfileLink = ({ id, title, setLinks, own, token, link }) => {
           },
         }
       )
+      // 2. update the frontend state
       setLinks((prev) => prev.map((i) => (i.id === id ? res.data.link : i)))
     } catch (error) {
       console.log(error)
@@ -25,6 +27,7 @@ const ProfileLink = ({ id, title, setLinks, own, token, link }) => {
   }
   const handleDeleteLink = async () => {
     try {
+      // 1. send the post request to the API along with JWT
       await axios.post(
         '/api/link/delete',
         { id },
@@ -36,6 +39,7 @@ const ProfileLink = ({ id, title, setLinks, own, token, link }) => {
           },
         }
       )
+      // 2. update the frontend state
       setLinks((prev) => prev.filter((i) => i.id !== id))
     } catch (error) {
       console.log(error)

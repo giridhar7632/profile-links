@@ -11,7 +11,6 @@ export default function Index() {
 
   useEffect(() => {
     if (isAuth) {
-      console.log(isAuth)
       Router.replace(`/p/${user}`)
     }
   }, [isAuth, user])

@@ -3,8 +3,8 @@ import prisma from '../../../utils/prisma'
 
 export default authenticationMiddleware(async function handle(req, res) {
   const { id } = req.body
-  console.log(req.body)
   try {
+    // delete the link using id
     await prisma.links.delete({
       where: { id },
     })
