@@ -1,11 +1,11 @@
-import extractId from '../../../utils/extractId'
+import authenticationMiddleware from '../../../utils/authorizationMiddleware'
 import prisma from '../../../utils/prisma'
 
-export default async function handle(req, res) {
-  const { token, id, link } = req.body
+export default authenticationMiddleware(async function handle(req, res) {
+  const { id, link } = req.body
   console.log(req.body)
   try {
-    const userId = await extractId(token)
+    const userId = req.user
     const data = await prisma.links.update({
       where: { id },
       data: {
@@ -27,4 +27,4 @@ export default async function handle(req, res) {
   } finally {
     await prisma.$disconnect()
   }
-}
+})

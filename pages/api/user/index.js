@@ -1,10 +1,8 @@
-import extractId from '../../../utils/extractId'
 import prisma from '../../../utils/prisma'
 
 export default async function handle(req, res) {
-  const { token } = req.body
+  const { userId } = req.body
   try {
-    const userId = await extractId(token)
     const user = await prisma.user.findUnique({
       where: { id: userId },
       include: {
@@ -15,7 +13,9 @@ export default async function handle(req, res) {
     if (!user) {
       throw new Error('User does not exist!')
     }
-    res.status(200).json({ message: 'User found!', user, type: 'success' })
+    res
+      .status(200)
+      .json({ message: 'User found!', profile: user, type: 'success' })
   } catch (error) {
     console.log(error)
     res.status(500).json({

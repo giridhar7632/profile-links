@@ -7,13 +7,14 @@ import Meta from '../components/layout/Meta'
 import { useAuth } from '../utils/useAuth'
 
 export default function Index() {
-  const { isAuth } = useAuth()
+  const { user, isAuth } = useAuth()
 
   useEffect(() => {
     if (isAuth) {
-      Router.replace(`/p/${isAuth}`)
+      console.log(isAuth)
+      Router.replace(`/p/${user}`)
     }
-  }, [isAuth])
+  }, [isAuth, user])
 
   return (
     <div
@@ -53,7 +54,6 @@ export default function Index() {
           </div>
         </div>
       </div>
-      {/* <div className='h-screen flex-1 bg-transparent md:max-w-xs lg:max-w-md'></div> */}
     </div>
   )
 }

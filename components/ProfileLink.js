@@ -4,14 +4,20 @@ import { Pencil, Trash } from './common/icons'
 import Link from './common/Link'
 import LinkForm from './LinkForm'
 
-const ProfileLink = ({ id, title, setLinks, isAuth, link }) => {
+const ProfileLink = ({ id, title, setLinks, own, token, link }) => {
   const handleUpdateLink = async (data) => {
     try {
-      const res = await axios.post('/api/link/update', {
-        id,
-        token: isAuth,
-        link: data,
-      })
+      const res = await axios.post(
+        '/api/link/update',
+        { id, link: data },
+        {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       setLinks((prev) => prev.map((i) => (i.id === id ? res.data.link : i)))
     } catch (error) {
       console.log(error)
@@ -19,7 +25,17 @@ const ProfileLink = ({ id, title, setLinks, isAuth, link }) => {
   }
   const handleDeleteLink = async () => {
     try {
-      await axios.post('/api/link/delete', { id, token: isAuth })
+      await axios.post(
+        '/api/link/delete',
+        { id },
+        {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       setLinks((prev) => prev.filter((i) => i.id !== id))
     } catch (error) {
       console.log(error)
@@ -36,7 +52,7 @@ const ProfileLink = ({ id, title, setLinks, isAuth, link }) => {
         >
           {title}
         </Link>
-        {isAuth && (
+        {own && (
           <div className="flex items-center justify-between gap-1">
             <LinkForm
               defaultValues={{ title, link }}

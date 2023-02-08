@@ -21,19 +21,21 @@ const Register = () => {
   const { fields, append } = useFieldArray({ control, name: 'links' })
   const [loading, setLoading] = useState(false)
   const [status, setStatus] = useState('')
-  const { isAuth, setIsAuth } = useAuth()
+  const { user, setIsAuth, setUser } = useAuth()
 
   useEffect(() => {
-    if (isAuth) {
-      Router.replace(`/p/${isAuth}`)
+    if (user) {
+      console.log(user)
+      Router.replace(`/p/${user}`)
     }
-  }, [isAuth])
+  }, [user])
 
   const onFormSubmit = handleSubmit(async (data) => {
     setLoading(true)
     try {
       const { data: res } = await axios.post('/api/user/register', data)
       setIsAuth(res.token)
+      setUser(res.user)
       reset()
     } catch (error) {
       setStatus(error.message || 'Something went wrong!')

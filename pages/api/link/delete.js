@@ -1,10 +1,10 @@
-import extractId from '../../../utils/extractId'
+import authenticationMiddleware from '../../../utils/authorizationMiddleware'
 import prisma from '../../../utils/prisma'
 
-export default async function handle(req, res) {
-  const { token, id } = req.body
+export default authenticationMiddleware(async function handle(req, res) {
+  const { id } = req.body
+  console.log(req.body)
   try {
-    await extractId(token)
     await prisma.links.delete({
       where: { id },
     })
@@ -18,4 +18,4 @@ export default async function handle(req, res) {
   } finally {
     await prisma.$disconnect()
   }
-}
+})

@@ -12,7 +12,7 @@ model Links {
   id     Int    @id @default(autoincrement())
   title  String
   link   String
-  userId Int?
+  userId String?
   User   User?  @relation(fields: [userId], references: [id])
 
   @@index([userId])
@@ -27,8 +27,7 @@ model Socials {
 }
 
 model User {
-  id        Int     @id @default(autoincrement())
-  token     String?
+  id        String    @id @default(cuid())
   name      String?
   email     String? @unique
   password  String?
