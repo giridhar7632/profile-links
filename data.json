@@ -1,14 +1,15 @@
 {
-	"name": "Space morzarat",
-	"email": "talla_11915139@gmail.com",
-	"socials": {
-		"facebook": "https://facebook.com/giridhar7632",
-		"instagram": "https://instagram.com/giridhar7632",
-		"twitter": "https://twitter.com/giridhar-talla"
-	},
-	"links": [
-		{ "title": "facebook", "link": "https://facebook.com/giridhar7632" },
-		{ "title": "instagarm", "link": "https://instagarm.com/giridhar7632" },
-		{ "title": "twitter", "link": "https://twitter.com/giridhar7632" }
-	]
+  "id": "1",
+  "name": "Space morzarat",
+  "email": "morzarat@gmail.com",
+  "socials": {
+    "facebook": "https://facebook.com/morzarat",
+    "instagram": "https://instagram.com/giridmorzarathar7632",
+    "twitter": "https://twitter.com/morzarat"
+  },
+  "links": [
+    { "title": "facebook", "link": "https://facebook.com/morzarat" },
+    { "title": "instagarm", "link": "https://instagarm.com/morzarat" },
+    { "title": "twitter", "link": "https://twitter.com/morzarat" }
+  ]
 }

@@ -21,8 +21,9 @@ const Register = () => {
   const { fields, append } = useFieldArray({ control, name: 'links' })
   const [loading, setLoading] = useState(false)
   const [status, setStatus] = useState('')
-  const { user, setIsAuth, setUser } = useAuth()
+  const { user, setIsAuth, setUser } = useAuth() // getting global states
 
+  // redirect user after global state update
   useEffect(() => {
     if (user) {
       Router.replace(`/p/${user}`)
@@ -35,8 +36,7 @@ const Register = () => {
     try {
       // sending post request
       const res = await axios.post('/api/user/register', data)
-      // updating states
-      setIsAuth(res.data.token)
+      setIsAuth(res.data.token) // updating states
       setUser(res.data.user)
       reset()
     } catch (error) {
@@ -112,6 +112,7 @@ const Register = () => {
               error={errors?.password}
             />
           </FormSection>
+
           {/* Social media links */}
           <FormSection title={'Social media'}>
             <p className="text-xs text-gray-600">

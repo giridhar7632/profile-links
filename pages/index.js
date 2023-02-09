@@ -1,20 +1,8 @@
 import Link from 'next/link'
-import Router from 'next/router'
-import { useEffect } from 'react'
-
 import Button from '../components/common/Button'
 import Meta from '../components/layout/Meta'
-import { useAuth } from '../utils/useAuth'
 
 export default function Index() {
-  const { user } = useAuth()
-
-  useEffect(() => {
-    if (user) {
-      Router.replace(`/p/${user}`)
-    }
-  }, [user])
-
   return (
     <div
       className={
@@ -24,7 +12,7 @@ export default function Index() {
       <Meta />
       <nav className="absolute z-10 flex w-full items-center justify-between p-4">
         <Link className="text-lg" href={'/'}>
-          Rosette links
+          Profile links
         </Link>
         <div className="btn-group">
           <Link href={'/login'}>

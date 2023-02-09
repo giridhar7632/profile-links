@@ -1,6 +1,6 @@
 import axios from 'axios'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import { Facebook, Instagram, Twitter } from '../../components/common/icons'
 import Link from '../../components/common/Link'
@@ -14,6 +14,7 @@ import { useAuth } from '../../utils/useAuth'
 const Profile = ({ profile, message, type }) => {
   const [links, setLinks] = useState(profile?.links || [])
   const { user, isAuth } = useAuth()
+
   const handleAddLink = async (data) => {
     try {
       // 1. send the post request to the API along with JWT
@@ -76,6 +77,7 @@ const Profile = ({ profile, message, type }) => {
             <Facebook width={24} />
           </Link>
         </div>
+
         <div className="flex flex-col">
           <h2 className="mb-2 text-gray-500">Links</h2>
           {links.length < 10 && user === profile.id ? (
@@ -110,10 +112,12 @@ export default Profile
 
 export async function getStaticProps({ params }) {
   try {
+    // getting user profile
     const { data } = await axios.post(`${baseUrl}/api/user`, {
       userId: params.id,
     })
     return {
+      // sending user data as props
       props: { ...data },
       revalidate: 10,
     }

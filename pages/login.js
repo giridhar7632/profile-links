@@ -18,8 +18,9 @@ const Login = () => {
   } = useForm()
   const [loading, setLoading] = useState(false)
   const [status, setStatus] = useState('')
-  const { setIsAuth, user, setUser } = useAuth()
+  const { user, setIsAuth, setUser } = useAuth()
 
+  // redirect user after global state update
   useEffect(() => {
     if (user) {
       Router.replace(`/p/${user}`)
@@ -28,10 +29,13 @@ const Login = () => {
 
   const onFormSubmit = handleSubmit(async (data) => {
     setLoading(true)
+    console.log(setIsAuth)
     try {
-      const { data: res } = await axios.post('/api/user/login', data)
-      setIsAuth(res.token)
-      setUser(res.user)
+      // 1. sending request to the backend
+      const res = await axios.post('/api/user/login', data)
+      console.log(res.data)
+      setIsAuth(res.data.token)
+      setUser(res.data.user)
       reset()
     } catch (error) {
       setStatus(error.message || 'Something went wrong!')
@@ -44,7 +48,6 @@ const Login = () => {
       <div className="flex h-full w-full flex-col items-center justify-center">
         <form className="w-96 max-w-xl rounded-xl border p-12 text-base">
           <h1 className="mb-6 w-max text-clip text-2xl font-bold">Login</h1>
-          {user}
           {status ? (
             <div className="mb-2 rounded-sm bg-red-50 p-2 text-center ring-2 ring-red-200">
               {status}

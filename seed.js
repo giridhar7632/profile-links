@@ -19,14 +19,15 @@ const load = async () => {
     await prisma.$queryRaw`ALTER TABLE Socials AUTO_INCREMENT = 1`
     console.log('reset socials auto increment to 1')
 
-    const users = await prisma.user.createMany({
+    await prisma.user.createMany({
       data: user,
     })
     console.log('Added user data')
 
+    const users = await prisma.user.findMany({})
     const newLinks = links.map((i, idx) => ({
       ...i,
-      userId: users[idx % links.length].id,
+      userId: users[idx % users.length].id,
     }))
     await prisma.links.createMany({
       data: newLinks,

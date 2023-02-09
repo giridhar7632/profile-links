@@ -13,8 +13,7 @@ export const AuthProvider = ({ children }) => {
   const [isAuth, setIsAuth] = useState('') // state for tracking jwt token
 
   useEffect(() => {
-    const token = localStorage.getItem('token')
-    // verifying the user
+    const token = localStorage.getItem('token') // getting token from storage
     const getUser = async (tkn) => {
       const { data: res } = await axios.get('/api/user/verify', {
         headers: {
@@ -23,7 +22,7 @@ export const AuthProvider = ({ children }) => {
           Authorization: `Bearer ${tkn}`,
         },
       })
-      setUser(res.user)
+      setUser(res.user) // updating the state
     }
     if (token) {
       setIsAuth(token)

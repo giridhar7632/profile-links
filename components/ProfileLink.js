@@ -45,6 +45,7 @@ const ProfileLink = ({ id, title, setLinks, own, token, link }) => {
       console.log(error)
     }
   }
+
   return (
     <li>
       <div className="mb-2 flex w-full cursor-pointer items-center justify-between rounded-md border p-3 font-medium shadow-sm hover:shadow-md">
