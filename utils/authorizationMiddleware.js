@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 
 // 1. take handler function as input
-function authenticationMiddleware(handler) {
+function authorizationMiddleware(handler) {
   return async (req, res) => {
     try {
       // 2. check for valid token
@@ -17,4 +17,4 @@ function authenticationMiddleware(handler) {
   }
 }
 
-export default authenticationMiddleware
+export default authorizationMiddleware

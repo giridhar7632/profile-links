@@ -1,8 +1,8 @@
-import authenticationMiddleware from '../../../utils/authorizationMiddleware'
+import authorizationMiddleware from '../../../utils/authorizationMiddleware'
 import prisma from '../../../utils/prisma'
 
 // suthorizing the user
-export default authenticationMiddleware(async function handle(req, res) {
+export default authorizationMiddleware(async function handle(req, res) {
   const { data } = req.body
   try {
     const userId = req.user

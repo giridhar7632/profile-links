@@ -1,7 +1,7 @@
-import authenticationMiddleware from '../../../utils/authorizationMiddleware'
+import authorizationMiddleware from '../../../utils/authorizationMiddleware'
 import prisma from '../../../utils/prisma'
 
-export default authenticationMiddleware(async function handle(req, res) {
+export default authorizationMiddleware(async function handle(req, res) {
   const { id, link } = req.body
   try {
     // 1. garb the user id by authorization

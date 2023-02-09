@@ -1,11 +1,10 @@
-import extractId from '../../../utils/extractId'
+import authorizationMiddleware from '../../../utils/authorizationMiddleware'
 import prisma from '../../../utils/prisma'
 
-export default async function handle(req, res) {
-  const { token } = req.body
+export default authorizationMiddleware(async function handle(req, res) {
   try {
-    const id = await extractId(token)
-    const links = await prisma.links.findMany({ where: { userId: id } })
+    const userId = req.user
+    const links = await prisma.links.findMany({ where: { userId } })
     res.status(200).json({ message: 'User found!', links, type: 'success' })
   } catch (error) {
     console.log(error)
@@ -16,4 +15,4 @@ export default async function handle(req, res) {
   } finally {
     await prisma.$disconnect()
   }
-}
+})
