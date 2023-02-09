@@ -111,6 +111,7 @@ export async function getStaticProps({ params }) {
     })
     return {
       props: { ...data },
+      revalidate: 10,
     }
   } catch (error) {
     console.log(error)
