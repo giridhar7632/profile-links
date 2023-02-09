@@ -1,6 +1,6 @@
 import axios from 'axios'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Facebook, Instagram, Twitter } from '../../components/common/icons'
 import Link from '../../components/common/Link'
