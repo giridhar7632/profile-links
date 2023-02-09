@@ -7,13 +7,13 @@ import Meta from '../components/layout/Meta'
 import { useAuth } from '../utils/useAuth'
 
 export default function Index() {
-  const { user, isAuth } = useAuth()
+  const { user } = useAuth()
 
   useEffect(() => {
-    if (isAuth) {
+    if (user) {
       Router.replace(`/p/${user}`)
     }
-  }, [isAuth, user])
+  }, [user])
 
   return (
     <div

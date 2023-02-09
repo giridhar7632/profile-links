@@ -35,6 +35,10 @@ const Profile = ({ profile, message, type }) => {
     }
   }
 
+  useEffect(() => {
+    profile?.links && setLinks(profile.links)
+  }, [profile])
+
   if (type !== 'success')
     return (
       <Layout>

@@ -13,22 +13,23 @@ const load = async () => {
     await prisma.socials.deleteMany()
     console.log('Deleted records in socials table')
 
-    await prisma.$queryRaw`ALTER TABLE User AUTO_INCREMENT = 1`
-    console.log('reset user auto increment to 1')
-
     await prisma.$queryRaw`ALTER TABLE Links AUTO_INCREMENT = 1`
     console.log('reset links auto increment to 1')
 
     await prisma.$queryRaw`ALTER TABLE Socials AUTO_INCREMENT = 1`
     console.log('reset socials auto increment to 1')
 
-    await prisma.user.createMany({
+    const users = await prisma.user.createMany({
       data: user,
     })
     console.log('Added user data')
 
+    const newLinks = links.map((i, idx) => ({
+      ...i,
+      userId: users[idx % links.length].id,
+    }))
     await prisma.links.createMany({
-      data: links,
+      data: newLinks,
     })
     console.log('Added links data')
 
