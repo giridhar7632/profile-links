@@ -1,8 +1,8 @@
 # 🏵️ Profile Links
 
-🔦 The starter code for building full-stack serverless application.
+✨ The Final code for building full-stack serverless application.
 
-- ✨ [Final code](https://github.com/giridhar7632/rosette)
+- 🔦 [Starter code](https://github.com/giridhar7632/profile-links-starter)
 <!-- - 📝 [Link to Article]() -->
 
 ## Quick Start⚡
