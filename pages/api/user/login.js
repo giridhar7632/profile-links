@@ -34,9 +34,8 @@ export default async function handler(req, res) {
       type: 'success',
     })
   } catch (error) {
-    console.log(error)
     res.status(500).json({
-      message: error.messsage || 'Something went wrong!',
+      message: error.message || 'Something went wrong!',
       type: 'error',
     })
   } finally {

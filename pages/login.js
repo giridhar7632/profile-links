@@ -29,7 +29,6 @@ const Login = () => {
 
   const onFormSubmit = handleSubmit(async (data) => {
     setLoading(true)
-    console.log(setIsAuth)
     try {
       // 1. sending request to the backend
       const res = await axios.post('/api/user/login', data)
@@ -38,7 +37,7 @@ const Login = () => {
       setUser(res.data.user)
       reset()
     } catch (error) {
-      setStatus(error.message || 'Something went wrong!')
+      setStatus(error.response.data.message || 'Something went wrong!')
     }
     setLoading(false)
   })

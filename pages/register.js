@@ -40,7 +40,7 @@ const Register = () => {
       setUser(res.data.user)
       reset()
     } catch (error) {
-      setStatus(error.message || 'Something went wrong!')
+      setStatus(error.response.data.message || 'Something went wrong!')
     }
     setLoading(false)
   })
