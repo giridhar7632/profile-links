@@ -3,7 +3,7 @@
 ✨ The Final code for building full-stack serverless application.
 
 - 🔦 [Starter code](https://github.com/giridhar7632/profile-links-starter)
-<!-- - 📝 [Link to Article]() -->
+- 📝 [Link to Article](https://www.honeybadger.io/blog/serverless-computing-tutorial/)
 
 ## Quick Start⚡
 
