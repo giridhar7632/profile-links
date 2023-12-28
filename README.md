@@ -4,6 +4,7 @@
 
 - 🔦 [Starter code](https://github.com/giridhar7632/profile-links-starter)
 - 📝 [Link to Article](https://www.honeybadger.io/blog/serverless-computing-tutorial/)
+- ✨ [Final demo](https://rosette-links.vercel.app/)
 
 ## Quick Start⚡
 
